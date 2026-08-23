@@ -1,0 +1,21 @@
+{
+  "modules": [
+    "Breadcrumbs",
+    "Buy",
+    "CTA",
+    "FAQ",
+    "FrontPage",
+    "FrontPageCards",
+    "Gallery",
+    "Hero",    "HeroPage",
+    "Layout",
+    "Nav",
+    "PdfDownload",
+    "PillarChildren",
+    "RelatedPosts",
+    "Search",
+    "SEO",
+    "TOC",
+    "Topbar"
+  ]
+}
