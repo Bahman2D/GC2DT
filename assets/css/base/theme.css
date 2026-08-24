@@ -73,7 +73,8 @@
 
 /* ── motion / elevation / radius — منبع حقیقت رفتار ── */
 :root {
-  --ease: cubic-bezier(.22, 1, .36, 1);   /* تنها منحنی مجاز */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-inout: cubic-bezier(.6, 0, .2, 1);   /* تنها منحنی مجاز */
   --dur: 220ms;                            /* سرعت پایه */
   --dur-slow: 380ms;                       /* برای پنل/دراور */
   --lift: -2px;                            /* تنها پرش مجاز هاور */
