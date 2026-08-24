@@ -1,52 +1,72 @@
-/* theme.css v2 — palette audit applied + helper tokens */
+/* theme.css v3 — palette taken from the old site's own CSS Overview.
+   Three brand colours came out of it; everything else there was neutral:
+     #fec109  yellow   → primary
+     #c0a26e  gold     → secondary, the gradient partner
+     #5a66e5  indigo   → accent  (the site itself already used it at 10%
+                                  alpha as a soft tint: #5a66e51a)
+     #000c38  navy     → the dark surface, and the ink that rides on yellow
+
+   Two things the source could not supply, decided here:
+   - It had no semantic set (no green/red). Those are invented to sit with
+     navy and gold, and warning is pushed to orange so it cannot be mistaken
+     for the yellow that is now the brand itself.
+   - It had no night palette at all. The dark half below is derived.
+
+   Contrast notes, since a yellow primary inverts the usual rule: white on
+   #fec109 is 1.6:1 and unusable, so on-primary is the brand navy at 11.5:1,
+   and --grad stays light end to end (yellow→gold, 7.7:1 at its darkest)
+   because FAQ, TOC and PillarChildren paint --on-primary straight onto it. */
 :root {
   --font-sans: "IRANYekanXVF","IRANYekanX",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
   --font-display: "Lalezar", var(--font-sans);
 }
 :root {
   /* brand */
-  --primary: #40a7e3;  --primary-strong: #1f7fb8;  --on-primary: #06283f;
-  --secondary: #4a96d6;
-  --accent: #e35a62;  --accent-strong: #c23a44;  --on-accent: #2a0709;
-  /* semantic */
-  --success: #3fae6f;  --on-success: #04291a;
-  --warning: #d98333;  --on-warning: #33190a;
-  --info: #0891b2;     --on-info: #022a33;
-  --danger: #cd6297;    --on-danger: #33081f;
-  /* text — muted FIXED for readability (was #999 = 2.85:1) */
-  --text-primary: #1d2430;  --text-secondary: #3e4653;  --text-muted: #6b7280;
-  --text-inverse: #ffffff;  --text-link: #026096;  --text-accent: #b23d45;
+  --primary: #fec109;  --primary-strong: #d9a406;  --on-primary: #000c38;
+  --fill-primary: #fec109;  --on-fill-primary: #000c38;   /* 11.5:1 */
+  --secondary: #c0a26e;
+  --accent: #5a66e5;  --accent-strong: #4450cc;  --on-accent: #ffffff;
+  /* semantic — not in the source, chosen to live with navy and gold */
+  --success: #2e9e63;  --on-success: #04291a;
+  --warning: #e08600;  --on-warning: #33190a;   /* orange, not yellow: that is the brand now */
+  --info: #0e8ea8;     --on-info: #022a33;
+  --danger: #d1344a;   --on-danger: #ffffff;
+  /* text — the source's #94969c is 2.96:1 on white, too light to read;
+     it is kept, but for the night palette where it belongs */
+  --text-primary: #101828;  --text-secondary: #454444;  --text-muted: #6d6d6d;   /* 5.2:1 */
+  --text-inverse: #ffffff;  --text-link: #5a66e5;  --text-accent: #4450cc;
   /* surfaces */
-  --bg-primary: #eef1f4;  --bg-secondary: #ffffff;  --bg-tertiary: #e2e8f0;  --bg-dark: #161d27;
-  --border-light: rgba(15,23,42,.08);  --border-medium: rgba(15,23,42,.14);
-  --border-dark: rgba(15,23,42,.3);   --border-inverse: rgba(255,255,255,.08);
-  /* helper tints (were scattered inline, now centralized) */
-  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
-  --primary-tint: color-mix(in srgb, var(--primary) 7%, var(--bg-secondary));
-  --accent-soft:  color-mix(in srgb, var(--accent) 11%, transparent);
+  --bg-primary: #f5f5f6;  --bg-secondary: #ffffff;  --bg-tertiary: #e6e6e7;  --bg-dark: #000c38;
+  --border-light: rgba(0,12,56,.12);  --border-medium: rgba(0,12,56,.20);
+  --border-dark: rgba(0,12,56,.34);   --border-inverse: rgba(255,255,255,.08);
+  /* helper tints — yellow needs a heavier mix than a blue did to read at all */
+  --primary-soft: color-mix(in srgb, var(--primary) 16%, transparent);
+  --primary-tint: color-mix(in srgb, var(--primary) 9%, var(--bg-secondary));
+  --accent-soft:  color-mix(in srgb, var(--accent) 10%, transparent);
   --success-soft: color-mix(in srgb, var(--success) 15%, transparent);
   --warning-soft: color-mix(in srgb, var(--warning) 15%, transparent);
   --info-soft:    color-mix(in srgb, var(--info) 13%, transparent);
   /* gradients + fx */
   --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
-  --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
-  --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
-  --shadow: 0 14px 38px -16px rgb(15 23 42 / .28);
-  --shadow-soft: 0 4px 16px -8px rgb(15 23 42 / .18);
+  --grad-cool: linear-gradient(135deg, var(--accent), var(--info));
+  --grad-warm: linear-gradient(135deg, var(--primary), var(--warning));
+  --shadow: 0 14px 38px -16px rgb(0 12 56 / .28);
+  --shadow-soft: 0 4px 16px -8px rgb(0 12 56 / .18);
 }
 .dark {
-  --primary: #5eb5f7;  --primary-strong: #8fccff;  --on-primary: #04223a;
-  --secondary: #3380c1;
-  --accent: #ef6b73;  --accent-strong: #ff8a91;  --on-accent: #2a0709;
-  --success: #5fc98c;  --on-success: #04291a;
-  --warning: #e89a52;  --on-warning: #33190a;
-  --info: #22b8d6;     --on-info: #022a33;
-  --danger: #d77aa6;    --on-danger: #33081f;
-  --text-primary: #f3f6fa;  --text-secondary: #cbd5e1;  --text-muted: #94a3b8;
-  --text-inverse: #0b121c;  --text-link: #79bdf8;  --text-accent: #ef6b73;
-  --bg-primary: #0d141e;  --bg-secondary: #131c28;  --bg-tertiary: #22303f;  --bg-dark: #cdd6e2;
+  --primary: #ffc82e;  --primary-strong: #ffdb70;  --on-primary: #000c38;
+  --fill-primary: #ffc82e;  --on-fill-primary: #000c38;
+  --secondary: #d4b884;
+  --accent: #8b93f0;  --accent-strong: #adb3f7;  --on-accent: #06082a;
+  --success: #4fbe83;  --on-success: #04291a;
+  --warning: #ffa733;  --on-warning: #33190a;
+  --info: #35b3cd;     --on-info: #022a33;
+  --danger: #ef6076;   --on-danger: #2a040a;
+  --text-primary: #f5f5f6;  --text-secondary: #c9cacd;  --text-muted: #94969c;
+  --text-inverse: #101828;  --text-link: #9aa2f5;  --text-accent: #9aa2f5;
+  --bg-primary: #05091c;  --bg-secondary: #0b1226;  --bg-tertiary: #16203a;  --bg-dark: #e6e6e7;
   --border-light: rgba(255,255,255,.08);  --border-medium: rgba(255,255,255,.14);
-  --border-dark: rgba(150,187,255,.3);   --border-inverse: rgba(0,0,0,.08);
+  --border-dark: rgba(255,200,46,.3);   --border-inverse: rgba(0,0,0,.08);
   --shadow: 0 18px 44px -16px rgb(0 0 0 / .6);
   --shadow-soft: 0 6px 20px -10px rgb(0 0 0 / .5);
 }
@@ -58,9 +78,9 @@
   --dur-slow: 380ms;                       /* برای پنل/دراور */
   --lift: -2px;                            /* تنها پرش مجاز هاور */
 
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / .06);
-  --shadow-md: 0 8px 24px -12px rgb(15 23 42 / .22);   /* هاور کارت/دکمه */
-  --shadow-lg: 0 20px 50px -20px rgb(15 23 42 / .35);  /* مودال/اورلی */
+  --shadow-sm: 0 1px 2px rgb(0 12 56 / .06);
+  --shadow-md: 0 8px 24px -12px rgb(0 12 56 / .22);   /* هاور کارت/دکمه */
+  --shadow-lg: 0 20px 50px -20px rgb(0 12 56 / .35);  /* مودال/اورلی */
 
   --radius-sm: .375rem;
   --radius: .5rem;     /* پیش‌فرض دکمه/کارت */
@@ -77,17 +97,19 @@
 /* Day palette forced inside dark mode (footer, hero header).
    Project-owned: retune these to this site's brand. */
 .dark .theme-day-palette {
-  --primary: #40a7e3;
-  --primary-strong: #1f7fb8;
-  --on-primary: #06283f;
-  --secondary: #4a96d6;
-  --accent: #e35a62;
-  --accent-strong: #c23a44;
-  --on-accent: #2a0709;
-  --warning: #d98333;
-  --info: #0891b2;
+  --primary: #fec109;
+  --primary-strong: #d9a406;
+  --on-primary: #000c38;
+  --fill-primary: #fec109;
+  --on-fill-primary: #000c38;
+  --secondary: #c0a26e;
+  --accent: #5a66e5;
+  --accent-strong: #4450cc;
+  --on-accent: #ffffff;
+  --warning: #e08600;
+  --info: #0e8ea8;
   --text-inverse: #ffffff;
-  --text-link: #026096;
+  --text-link: #5a66e5;
   --border-inverse: rgba(255,255,255,.08);
-  --bg-dark: #161d27;
+  --bg-dark: #000c38;
 }
