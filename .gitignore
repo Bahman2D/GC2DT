@@ -42,6 +42,8 @@ comments.php
 functions.php
 page-about-us.php
 build-js.js
+build-css.js
+check-css.js
 build.php
 tailwind.config.js
 postcss.config.js
@@ -51,3 +53,8 @@ watch-core.js
 sync-core.js
 # Core junction
 _core/
+package.json
+package-lock.json
+# Tool state (generated per project, not source)
+.sync-core-manifest.json
+.css-baseline.json
