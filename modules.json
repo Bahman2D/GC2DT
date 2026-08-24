@@ -1,5 +1,6 @@
 {
   "modules": [
+    "Account",
     "Breadcrumbs",
     "Buy",
     "CTA",
@@ -7,14 +8,16 @@
     "FrontPage",
     "FrontPageCards",
     "Gallery",
-    "Hero",    "HeroPage",
+    "Hero",
+    "HeroPage",
     "Layout",
     "Nav",
     "PdfDownload",
     "PillarChildren",
     "RelatedPosts",
-    "Search",
     "SEO",
+    "Search",
+    "Shop",
     "TOC",
     "Topbar"
   ]
