@@ -42,6 +42,7 @@ comments.php
 functions.php
 page-about-us.php
 build-js.js
+build-theme.js
 build-css.js
 check-css.js
 build.php
@@ -58,3 +59,10 @@ package-lock.json
 # Tool state (generated per project, not source)
 .sync-core-manifest.json
 .css-baseline.json
+
+# Build output of the view tier
+*.min.css
+
+# Catalog migration workspace (data + exports, never synced, never deployed)
+_migration/
+check-theme.js
