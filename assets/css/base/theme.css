@@ -1,22 +1,6 @@
-/* theme.css v3 — palette taken from the old site's own CSS Overview.
-   Three brand colours came out of it; everything else there was neutral:
-     #fec109  yellow   → primary
-     #c0a26e  gold     → secondary, the gradient partner
-     #5a66e5  indigo   → accent  (the site itself already used it at 10%
-                                  alpha as a soft tint: #5a66e51a)
-     #000c38  navy     → the dark surface, and the ink that rides on yellow
-
-   Two things the source could not supply, decided here:
-   - It had no semantic set (no green/red). Those are invented to sit with
-     navy and gold, and warning is pushed to orange so it cannot be mistaken
-     for the yellow that is now the brand itself.
-   - It had no night palette at all. The dark half below is derived.
-
-   Contrast notes, since a yellow primary inverts the usual rule: white on
-   #fec109 is 1.6:1 and unusable, so on-primary is the brand navy at 11.5:1,
-   and --grad stays light end to end (yellow→gold, 7.7:1 at its darkest)
-   because FAQ, TOC and PillarChildren paint --on-primary straight onto it. */
+/* theme.css v6 */
 :root {
+  color-scheme: light;
   --font-sans: "IRANYekanXVF","IRANYekanX",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
   --font-display: "Lalezar", var(--font-sans);
 }
@@ -24,7 +8,7 @@
   /* brand */
   --primary: #fec109;  --primary-strong: #d9a406;  --on-primary: #000c38;
   --fill-primary: #fec109;  --on-fill-primary: #000c38;   /* 11.5:1 */
-  --secondary: #c0a26e;
+  --secondary: #c0a26e;  --on-secondary: #1a1206;
   --accent: #5a66e5;  --accent-strong: #4450cc;  --on-accent: #ffffff;
   /* semantic — not in the source, chosen to live with navy and gold */
   --success: #2e9e63;  --on-success: #04291a;
@@ -33,10 +17,10 @@
   --danger: #d1344a;   --on-danger: #ffffff;
   /* text — the source's #94969c is 2.96:1 on white, too light to read;
      it is kept, but for the night palette where it belongs */
-  --text-primary: #101828;  --text-secondary: #454444;  --text-muted: #6d6d6d;   /* 5.2:1 */
+  --text-primary: #101828;  --text-secondary: #454444;  --text-muted: #676767;   /* 5.2:1 */
   --text-inverse: #ffffff;  --text-link: #5a66e5;  --text-accent: #4450cc;
   /* surfaces */
-  --bg-primary: #f5f5f6;  --bg-secondary: #ffffff;  --bg-tertiary: #e6e6e7;  --bg-dark: #000c38;
+  --bg-primary: #f5f5f6;  --bg-secondary: #ffffff;  --bg-tertiary: #e6e6e7;  --bg-dark: #000c38;  --scrim: #1a1c2e;
   --border-light: rgba(0,12,56,.12);  --border-medium: rgba(0,12,56,.20);
   --border-dark: rgba(0,12,56,.34);   --border-inverse: rgba(255,255,255,.08);
   /* helper tints — yellow needs a heavier mix than a blue did to read at all */
@@ -52,11 +36,36 @@
   --grad-warm: linear-gradient(135deg, var(--primary), var(--warning));
   --shadow: 0 14px 38px -16px rgb(0 12 56 / .28);
   --shadow-soft: 0 4px 16px -8px rgb(0 12 56 / .18);
+  /* colour roles - generated, see decisions/colour-by-role */
+  --fill-brand: #fec109;  --on-fill-brand: #1f1400;
+  --ink-brand: #826100;  --line-brand: #a67d00;  --wash-brand: #fff4e7;
+  --accent-ink: #4e58d5;  --accent-line: #5a66e5;  --accent-wash: #eaeafa;
+  --accent-fill: #5a66e5;  --on-accent-fill: #ffffff;
+  --ok-ink: #007643;  --ok-line: #23965c;  --ok-wash: #e8f0ea;
+  --warn-ink: #965800;  --warn-line: #bf7100;  --warn-wash: #f9ede7;
+  --no-ink: #c42841;  --no-line: #d1344a;  --no-wash: #f7e8e9;
+  --no-fill: #d1344a;  --on-no-fill: #ffffff;
+  --no-strong: #b10331;
+  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--wash-brand);
+  --price-ink: #101828;
+  --logo-mark: #826100;  --logo-word: #101828;
+  --glow-brand: #382c37;  --glow-accent: #1b2462;  --glow-halo: #453536;
+  --veil-brand: color-mix(in oklab, var(--primary) 9%, transparent);
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --primary-tint: color-mix(in srgb, var(--primary) 7%, var(--bg-secondary));
+  --accent-soft:  color-mix(in srgb, var(--accent) 11%, transparent);
+  --success-soft: color-mix(in srgb, var(--success) 15%, transparent);
+  --warning-soft: color-mix(in srgb, var(--warning) 15%, transparent);
+  --info-soft:    color-mix(in srgb, var(--info) 13%, transparent);
+  --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
+  --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
 }
 .dark {
+  color-scheme: dark;
   --primary: #ffc82e;  --primary-strong: #ffdb70;  --on-primary: #000c38;
   --fill-primary: #ffc82e;  --on-fill-primary: #000c38;
-  --secondary: #d4b884;
+  --secondary: #d4b884;  --on-secondary: #1a1206;
   --accent: #8b93f0;  --accent-strong: #adb3f7;  --on-accent: #06082a;
   --success: #4fbe83;  --on-success: #04291a;
   --warning: #ffa733;  --on-warning: #33190a;
@@ -64,11 +73,35 @@
   --danger: #ef6076;   --on-danger: #2a040a;
   --text-primary: #f5f5f6;  --text-secondary: #c9cacd;  --text-muted: #94969c;
   --text-inverse: #101828;  --text-link: #9aa2f5;  --text-accent: #9aa2f5;
-  --bg-primary: #05091c;  --bg-secondary: #0b1226;  --bg-tertiary: #16203a;  --bg-dark: #e6e6e7;
+  --bg-primary: #05091c;  --bg-secondary: #0b1226;  --bg-tertiary: #16203a;  --bg-dark: #e6e6e7;  --scrim: #05060c;
   --border-light: rgba(255,255,255,.08);  --border-medium: rgba(255,255,255,.14);
   --border-dark: rgba(255,200,46,.3);   --border-inverse: rgba(0,0,0,.08);
   --shadow: 0 18px 44px -16px rgb(0 0 0 / .6);
   --shadow-soft: 0 6px 20px -10px rgb(0 0 0 / .5);
+  /* colour roles - generated, see decisions/colour-by-role */
+  --fill-brand: #ffc82e;  --on-fill-brand: #1f1400;
+  --ink-brand: #ffc82e;  --line-brand: #ffc82e;  --wash-brand: #533e1c;
+  --accent-ink: #8b93f0;  --accent-line: #8b93f0;  --accent-wash: #2b2f53;
+  --accent-fill: #8b93f0;  --on-accent-fill: #11132c;
+  --ok-ink: #4fbe83;  --ok-line: #4fbe83;  --ok-wash: #1c463a;
+  --warn-ink: #ffa733;  --warn-line: #ffa733;  --warn-wash: #664328;
+  --no-ink: #ef6076;  --no-line: #ef6076;  --no-wash: #421e30;
+  --no-fill: #ef6076;  --on-no-fill: #280b0f;
+  --no-strong: #ff8b98;
+  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--wash-brand);
+  --price-ink: #f5f5f6;
+  --logo-mark: #ffc82e;  --logo-word: #f5f5f6;
+  --glow-brand: #f5d59d;  --glow-accent: #bbbeec;  --glow-halo: #f5d59d;
+  --veil-brand: color-mix(in oklab, var(--primary) 9%, transparent);
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --primary-tint: color-mix(in srgb, var(--primary) 7%, var(--bg-secondary));
+  --accent-soft:  color-mix(in srgb, var(--accent) 11%, transparent);
+  --success-soft: color-mix(in srgb, var(--success) 15%, transparent);
+  --warning-soft: color-mix(in srgb, var(--warning) 15%, transparent);
+  --info-soft:    color-mix(in srgb, var(--info) 13%, transparent);
+  --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
+  --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
 }
 
 /* ── motion / elevation / radius — منبع حقیقت رفتار ── */
@@ -95,15 +128,15 @@
   --shadow-lg: 0 24px 60px -20px rgb(0 0 0 / .65);
 }
 
-/* Day palette forced inside dark mode (footer, hero header).
+/* Day palette pinned on dark surfaces (footer, hero header) — both modes.
    Project-owned: retune these to this site's brand. */
-.dark .theme-day-palette {
+.theme-day-palette {
   --primary: #fec109;
   --primary-strong: #d9a406;
   --on-primary: #000c38;
   --fill-primary: #fec109;
   --on-fill-primary: #000c38;
-  --secondary: #c0a26e;
+  --secondary: #c0a26e;  --on-secondary: #1a1206;
   --accent: #5a66e5;
   --accent-strong: #4450cc;
   --on-accent: #ffffff;
@@ -113,4 +146,86 @@
   --text-link: #5a66e5;
   --border-inverse: rgba(255,255,255,.08);
   --bg-dark: #000c38;
+}
+
+.dark .theme-day-palette {
+  --primary: #fec109;
+  --primary-strong: #d9a406;
+  --on-primary: #000c38;
+  --fill-primary: #fec109;
+  --on-fill-primary: #000c38;
+  --secondary: #c0a26e;  --on-secondary: #1a1206;
+  --accent: #5a66e5;
+  --accent-strong: #4450cc;
+  --on-accent: #ffffff;
+  --warning: #e08600;
+  --info: #0e8ea8;
+  --text-inverse: #ffffff;
+  --text-link: #5a66e5;
+  --border-inverse: rgba(255,255,255,.08);
+  --bg-dark: #000c38;
+  /* colour roles - generated, see decisions/colour-by-role */
+  --fill-brand: #fec109;  --on-fill-brand: #1f1400;
+  --ink-brand: #fec109;  --line-brand: #fec109;  --wash-brand: #684f34;
+  --accent-ink: #6978f8;  --accent-line: #5a66e5;  --accent-wash: #0d174a;
+  --accent-fill: #5a66e5;  --on-accent-fill: #ffffff;
+  --ok-ink: #2e9e63;  --ok-line: #2e9e63;  --ok-wash: #05273b;
+  --warn-ink: #e08600;  --warn-line: #e08600;  --warn-wash: #452936;
+  --no-ink: #e74d5d;  --no-line: #d1344a;  --no-wash: #2c0f39;
+  --no-fill: #d1344a;  --on-no-fill: #ffffff;
+  --no-strong: #f15464;
+  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--wash-brand);
+  --price-ink: #ffffff;
+  --logo-mark: #fec109;  --logo-word: #ffffff;
+  --glow-brand: #382c37;  --glow-accent: #1b2462;  --glow-halo: #453536;
+  --veil-brand: color-mix(in oklab, var(--primary) 9%, transparent);
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --primary-tint: color-mix(in srgb, var(--primary) 7%, var(--bg-secondary));
+  --accent-soft:  color-mix(in srgb, var(--accent) 11%, transparent);
+  --success-soft: color-mix(in srgb, var(--success) 15%, transparent);
+  --warning-soft: color-mix(in srgb, var(--warning) 15%, transparent);
+  --info-soft:    color-mix(in srgb, var(--info) 13%, transparent);
+  --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
+  --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
+  --text-primary: #ffffff;  --text-secondary: #cdd5e2;  --text-muted: #9ea5b2;
+  --bg-secondary: #031542;  --bg-tertiary: #0c2350;
+  --border-light: rgba(255,255,255,.14);  --border-medium: rgba(255,255,255,.30);
+  --border-dark: rgba(255,255,255,.42);
+}
+
+.theme-page-palette {
+  --text-primary: #101828;
+  --text-secondary: #454444;
+  --text-muted: #676767;
+  --bg-primary: #f5f5f6;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e6e6e7;
+  --border-light: rgba(0,12,56,.12);
+  --border-medium: rgba(0,12,56,.20);
+  --border-dark: rgba(0,12,56,.34);
+  --text-inverse: #ffffff;
+  --fill-brand: #fec109;  --on-fill-brand: #1f1400;
+  --ink-brand: #826100;  --line-brand: #a67d00;  --wash-brand: #fff4e7;
+  --accent-ink: #4e58d5;  --accent-line: #5a66e5;  --accent-wash: #eaeafa;
+  --accent-fill: #5a66e5;  --on-accent-fill: #ffffff;
+  --ok-ink: #007643;  --ok-line: #23965c;  --ok-wash: #e8f0ea;
+  --warn-ink: #965800;  --warn-line: #bf7100;  --warn-wash: #f9ede7;
+  --no-ink: #c42841;  --no-line: #d1344a;  --no-wash: #f7e8e9;
+  --no-fill: #d1344a;  --on-no-fill: #ffffff;
+  --no-strong: #b10331;
+  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--wash-brand);
+  --price-ink: #101828;
+  --logo-mark: #826100;  --logo-word: #101828;
+  --glow-brand: #382c37;  --glow-accent: #1b2462;  --glow-halo: #453536;
+  --veil-brand: color-mix(in oklab, var(--primary) 9%, transparent);
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --primary-tint: color-mix(in srgb, var(--primary) 7%, var(--bg-secondary));
+  --accent-soft:  color-mix(in srgb, var(--accent) 11%, transparent);
+  --success-soft: color-mix(in srgb, var(--success) 15%, transparent);
+  --warning-soft: color-mix(in srgb, var(--warning) 15%, transparent);
+  --info-soft:    color-mix(in srgb, var(--info) 13%, transparent);
+  --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
+  --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
 }
