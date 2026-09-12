@@ -66,3 +66,6 @@ package-lock.json
 # Catalog migration workspace (data + exports, never synced, never deployed)
 _migration/
 check-theme.js
+audit-render.js
+check-content.php
+check-render.js
