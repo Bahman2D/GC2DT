@@ -1,4 +1,4 @@
-/* PillarProducts/view.css v5.0 */
+/* PillarProducts/view.css v5.1 */
 
 /* ── نوار کالا ─────────────────────────────────────
    یک قاب بیرونی، کارت‌ها بدون فاصله چسبیده به هم — قطاری.
@@ -58,7 +58,7 @@
   text-align: center;
   /* همان گرادیانتی که em داخل H1 می‌گیرد — روی زرد، متن مشکی خوانا می‌ماند */
   background: linear-gradient(135deg, var(--primary), var(--info));
-  color: #14110a;
+  color: var(--on-fill-brand);
 }
 
 /* عنوان در فضای آزاد، هم عمودی هم افقی وسط */
@@ -123,7 +123,7 @@
   font-size: 0.6875rem;
   font-weight: 800;
   line-height: 1.7;
-  color: #fff;
+  color: var(--on-photo);
 }
 .kala__flag--off { background: var(--danger); }
 .kala__flag--out { background: rgb(0 0 0 / .68); }
@@ -137,7 +137,7 @@
   padding: 0.0625rem 0.4375rem;
   border-radius: var(--radius-full, 999px);
   background: rgb(0 0 0 / .55);
-  color: #fff;
+  color: var(--on-photo);
   font-size: 0.6875rem;
   line-height: 1.7;
   white-space: nowrap;
