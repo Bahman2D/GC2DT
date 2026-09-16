@@ -1,4 +1,4 @@
-/* PillarProducts/view.css v5.1 */
+/* PillarProducts/view.css v5.2 */
 
 /* ── نوار کالا ─────────────────────────────────────
    یک قاب بیرونی، کارت‌ها بدون فاصله چسبیده به هم — قطاری.
@@ -72,6 +72,7 @@
   font-weight: 800;
   line-height: 1.8;
   text-wrap: balance;
+  color: inherit;
 }
 
 .kala__lead-link {
