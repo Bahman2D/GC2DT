@@ -1,4 +1,4 @@
-/* PillarProducts/view.css v4.9 */
+/* PillarProducts/view.css v5.0 */
 
 /* ── نوار کالا ─────────────────────────────────────
    یک قاب بیرونی، کارت‌ها بدون فاصله چسبیده به هم — قطاری.
@@ -74,7 +74,7 @@
   text-wrap: balance;
 }
 
-.kala__lead-cta {
+.kala__lead-link {
   display: inline-flex;
   align-items: center;
   gap: 0.1875rem;
@@ -85,8 +85,8 @@
   opacity: .72;
   transition: opacity var(--dur) var(--ease);
 }
-.kala__lead-cta svg { fill: currentColor; }
-.kala__lead-cta:hover { opacity: 1; text-decoration: underline; }
+.kala__lead-link svg { fill: currentColor; }
+.kala__lead-link:hover { opacity: 1; text-decoration: underline; }
 
 /* ── کارت کالا ───────────────────────────────────── */
 .kala__link {
@@ -125,7 +125,7 @@
   line-height: 1.7;
   color: #fff;
 }
-.kala__flag--off { background: var(--danger, #e03131); }
+.kala__flag--off { background: var(--danger); }
 .kala__flag--out { background: rgb(0 0 0 / .68); }
 
 /* مشخصه‌ی کوتاه روی لبه‌ی پایینِ عکس می‌نشیند تا بدنه شلوغ نشود */
@@ -166,7 +166,7 @@
   transition: color var(--dur) var(--ease);
 }
 /* هاور فقط رنگ عنوان — طلاییِ تیره، نه زردِ پرایمری */
-.kala__link:hover .kala__name { color: var(--primary-strong, #d9a406); }
+.kala__link:hover .kala__name { color: var(--primary-strong); }
 
 /* قیمت — همان قواعد کارت فروشگاه (.p-card__price)، تا دو جا یک شکل باشند.
    زردِ پرایمری روی زمینه‌ی روشن خوانا نیست، پس رنگ متن اصلی. */

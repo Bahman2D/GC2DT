@@ -1,5 +1,5 @@
 <?php
-/* PillarProducts/view.php v4.3 */
+/* PillarProducts/view.php v4.4 */
 declare(strict_types=1);
 
 defined("ABSPATH") || exit();
@@ -22,7 +22,7 @@ $label = $note !== "" ? $note : __("کالاهای مرتبط", "twodt");
       <div class="kala__lead">
         <p class="kala__lead-title"><?php echo esc_html($label); ?></p>
         <?php if ($more !== ""): ?>
-          <a class="kala__lead-cta" href="<?php echo esc_url($more); ?>">
+          <a class="kala__lead-link" href="<?php echo esc_url($more); ?>">
             <?php esc_html_e("دیدن همه", "twodt"); ?>
             <svg viewBox="0 -960 960 960" width="15" height="15" aria-hidden="true" focusable="false">
               <path d="M560-280v-400L360-480l200 200Z"></path>
