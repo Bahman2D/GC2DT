@@ -1,4 +1,4 @@
-/* theme.css v7 */
+/* theme.css v8 */
 :root {
   color-scheme: light;
   --font-sans: "IRANYekanXVF","IRANYekanX",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
@@ -147,24 +147,6 @@
   --text-link: #5a66e5;
   --border-inverse: rgba(255,255,255,.08);
   --bg-dark: #000c38;
-}
-
-.dark .theme-day-palette {
-  --primary: #fec109;
-  --primary-strong: #d9a406;
-  --on-primary: #000c38;
-  --fill-primary: #fec109;
-  --on-fill-primary: #000c38;
-  --secondary: #c0a26e;  --on-secondary: #1a1206;
-  --accent: #5a66e5;
-  --accent-strong: #4450cc;
-  --on-accent: #ffffff;
-  --warning: #e08600;
-  --info: #0e8ea8;
-  --text-inverse: #ffffff;
-  --text-link: #5a66e5;
-  --border-inverse: rgba(255,255,255,.08);
-  --bg-dark: #000c38;
   /* colour roles - generated, see decisions/colour-by-role */
   --fill-brand: #fec109;  --on-fill-brand: #1f1400;
   --ink-brand: #fec109;  --line-brand: #fec109;  --wash-brand: #684f34;
@@ -229,4 +211,45 @@
   --grad:      linear-gradient(135deg, var(--primary), var(--secondary));
   --grad-cool: linear-gradient(135deg, var(--primary), var(--info));
   --grad-warm: linear-gradient(135deg, var(--accent), var(--warning));
+}
+
+body.dark .theme-page-palette {
+  --text-primary: #f5f5f6;
+  --text-secondary: #c9cacd;
+  --text-muted: #94969c;
+  --bg-primary: #05091c;
+  --bg-secondary: #0b1226;
+  --bg-tertiary: #16203a;
+  --border-light: rgba(255,255,255,.08);
+  --border-medium: rgba(255,255,255,.14);
+  --border-dark: rgba(255,200,46,.3);
+  --text-inverse: #101828;
+  --fill-brand: #ffc82e;
+  --on-fill-brand: #1f1400;
+  --ink-brand: #ffc82e;
+  --line-brand: #ffc82e;
+  --wash-brand: #533e1c;
+  --accent-ink: #8b93f0;
+  --accent-line: #8b93f0;
+  --accent-wash: #2b2f53;
+  --accent-fill: #8b93f0;
+  --on-accent-fill: #11132c;
+  --ok-ink: #4fbe83;
+  --ok-line: #4fbe83;
+  --ok-wash: #1c463a;
+  --warn-ink: #ffa733;
+  --warn-line: #ffa733;
+  --warn-wash: #664328;
+  --no-ink: #ef6076;
+  --no-line: #ef6076;
+  --no-wash: #421e30;
+  --no-fill: #ef6076;
+  --on-no-fill: #280b0f;
+  --no-strong: #ff8b98;
+  --price-ink: #f5f5f6;
+  --logo-mark: #ffc82e;
+  --logo-word: #f5f5f6;
+  --glow-brand: #f5d59d;
+  --glow-accent: #bbbeec;
+  --glow-halo: #f5d59d;
 }
