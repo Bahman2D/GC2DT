@@ -1,4 +1,4 @@
-/* PillarProducts/view.css v5.2 */
+/* PillarProducts/view.css v5.3 */
 
 /* ── نوار کالا ─────────────────────────────────────
    یک قاب بیرونی، کارت‌ها بدون فاصله چسبیده به هم — قطاری.
@@ -9,6 +9,7 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg, 0.75rem);
   overflow: hidden;
+  contain: paint;
   background: var(--bg-secondary);
 }
 
