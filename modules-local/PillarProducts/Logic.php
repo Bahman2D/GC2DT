@@ -1,5 +1,5 @@
 <?php
-/* PillarProducts/Logic.php v3.2 */
+/* PillarProducts/Logic.php v3.3 */
 declare(strict_types=1);
 
 namespace TWODT\Modules\PillarProducts;
@@ -129,21 +129,28 @@ final class Logic
             "include_children" => true,
           ],
         ],
-        "meta_query" => [["key" => "_stock_status", "value" => "instock"]],
         /* پرفروش اول؛ فروشگاه تازه که آمار ندارد، تازه‌ترین‌ها بالا می‌آیند.
            ترتیب الفبایی بدترین حالت است — لوازم جانبی سرِ فهرست می‌نشینند. */
         "meta_key" => "total_sales",
         "orderby" => ["meta_value_num" => "DESC", "date" => "DESC"],
+        "suppress_filters" => false,
+        "twodt_stock_last" => true,
       ];
-      $found = get_posts($args);
-      if ($found === []) {
-        unset($args["meta_query"]);
-        $found = get_posts($args);
-      }
-      $picked = array_merge($picked, $found);
+      $picked = array_merge($picked, get_posts($args));
     }
 
-    return array_slice(array_values(array_unique(array_map("intval", $picked))), 0, $limit);
+    $ids = array_slice(array_values(array_unique(array_map("intval", $picked))), 0, $limit);
+    $in = [];
+    $out = [];
+    foreach ($ids as $id) {
+      if (get_post_meta($id, "_stock_status", true) === "outofstock") {
+        $out[] = $id;
+      } else {
+        $in[] = $id;
+      }
+    }
+
+    return array_merge($in, $out);
   }
 
   private static function more_url(string $more, string $cat_raw): string
