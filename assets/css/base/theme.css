@@ -1,4 +1,4 @@
-/* theme.css v8 */
+/* theme.css v8.2 */
 :root {
   color-scheme: light;
   --font-sans: "IRANYekanXVF","IRANYekanX",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
@@ -81,15 +81,15 @@
   --shadow-soft: 0 6px 20px -10px rgb(0 0 0 / .5);
   /* colour roles - generated, see decisions/colour-by-role */
   --fill-brand: #ffc82e;  --on-fill-brand: #1f1400;
-  --ink-brand: #ffc82e;  --line-brand: #ffc82e;  --wash-brand: #533e1c;
+  --ink-brand: #ffc82e;  --line-brand: #ffc82e;  --wash-brand: var(--bg-tertiary);
   --accent-ink: #8b93f0;  --accent-line: #8b93f0;  --accent-wash: #2b2f53;
   --accent-fill: #8b93f0;  --on-accent-fill: #11132c;
   --ok-ink: #4fbe83;  --ok-line: #4fbe83;  --ok-wash: #1c463a;
-  --warn-ink: #ffa733;  --warn-line: #ffa733;  --warn-wash: #664328;
+  --warn-ink: #ffa733;  --warn-line: #ffa733;  --warn-wash: var(--bg-tertiary);
   --no-ink: #ef6076;  --no-line: #ef6076;  --no-wash: #421e30;
   --no-fill: #ef6076;  --on-no-fill: #280b0f;
   --no-strong: #ff8b98;
-  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--wash-brand);
+  --nav-ink: var(--ink-brand);  --nav-line: var(--line-brand);  --nav-wash: var(--bg-tertiary);
   --price-ink: #f5f5f6;
   --logo-mark: #ffc82e;  --logo-word: #f5f5f6;
   --glow-brand: #f5d59d;  --glow-accent: #bbbeec;  --glow-halo: #f5d59d;
@@ -149,11 +149,11 @@
   --bg-dark: #000c38;
   /* colour roles - generated, see decisions/colour-by-role */
   --fill-brand: #fec109;  --on-fill-brand: #1f1400;
-  --ink-brand: #fec109;  --line-brand: #fec109;  --wash-brand: #684f34;
+  --ink-brand: #fec109;  --line-brand: #fec109;  --wash-brand: var(--bg-tertiary);
   --accent-ink: #6978f8;  --accent-line: #5a66e5;  --accent-wash: #0d174a;
   --accent-fill: #5a66e5;  --on-accent-fill: #ffffff;
   --ok-ink: #2e9e63;  --ok-line: #2e9e63;  --ok-wash: #05273b;
-  --warn-ink: #e08600;  --warn-line: #e08600;  --warn-wash: #452936;
+  --warn-ink: #e08600;  --warn-line: #e08600;  --warn-wash: var(--bg-tertiary);
   --no-ink: #e74d5d;  --no-line: #d1344a;  --no-wash: #2c0f39;
   --no-fill: #d1344a;  --on-no-fill: #ffffff;
   --no-strong: #f15464;
@@ -228,7 +228,7 @@ body.dark .theme-page-palette {
   --on-fill-brand: #1f1400;
   --ink-brand: #ffc82e;
   --line-brand: #ffc82e;
-  --wash-brand: #533e1c;
+  --wash-brand: var(--bg-tertiary);
   --accent-ink: #8b93f0;
   --accent-line: #8b93f0;
   --accent-wash: #2b2f53;
@@ -239,13 +239,14 @@ body.dark .theme-page-palette {
   --ok-wash: #1c463a;
   --warn-ink: #ffa733;
   --warn-line: #ffa733;
-  --warn-wash: #664328;
+  --warn-wash: var(--bg-tertiary);
   --no-ink: #ef6076;
   --no-line: #ef6076;
   --no-wash: #421e30;
   --no-fill: #ef6076;
   --on-no-fill: #280b0f;
   --no-strong: #ff8b98;
+  --nav-wash: var(--bg-tertiary);
   --price-ink: #f5f5f6;
   --logo-mark: #ffc82e;
   --logo-word: #f5f5f6;

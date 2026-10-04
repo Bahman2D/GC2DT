@@ -1,5 +1,5 @@
 <?php
-/* PillarProducts/Logic.php v3.3 */
+/* PillarProducts/Logic.php v3.5 */
 declare(strict_types=1);
 
 namespace TWODT\Modules\PillarProducts;
@@ -95,9 +95,9 @@ final class Logic
 
   public static function assets(): void
   {
-    $css = Asset::minified(Mod::rel("PillarProducts/view.css"));
-    if ($css !== "") {
-      wp_enqueue_style("twodt-pillar-products", Asset::uri($css), [], Asset::ver($css));
+    if (class_exists(\TWODT\Modules\Shop\Logic::class)) {
+      \TWODT\Modules\Shop\Logic::card_assets();
+      \TWODT\Modules\Shop\Logic::actions_assets();
     }
   }
 

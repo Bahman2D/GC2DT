@@ -1,9 +1,10 @@
 <?php
-/* PillarProducts/view.php v4.4 */
+/* PillarProducts/view.php v6.0 */
 declare(strict_types=1);
 
 defined("ABSPATH") || exit();
 
+use TWODT\Helpers\Modules as Mod;
 use TWODT\Modules\PillarProducts\Logic;
 
 $ids = isset($args["ids"]) && is_array($args["ids"]) ? $args["ids"] : [];
@@ -15,62 +16,45 @@ if ($ids === []) {
 }
 $label = $note !== "" ? $note : __("کالاهای مرتبط", "twodt");
 ?>
-<aside class="kala" aria-label="<?php echo esc_attr($label); ?>">
-  <ul class="kala__list">
-
-    <li class="kala__item kala__item--lead">
-      <div class="kala__lead">
-        <p class="kala__lead-title"><?php echo esc_html($label); ?></p>
-        <?php if ($more !== ""): ?>
-          <a class="kala__lead-link" href="<?php echo esc_url($more); ?>">
-            <?php esc_html_e("دیدن همه", "twodt"); ?>
-            <svg viewBox="0 -960 960 960" width="15" height="15" aria-hidden="true" focusable="false">
-              <path d="M560-280v-400L360-480l200 200Z"></path>
-            </svg>
-          </a>
-        <?php endif; ?>
-      </div>
-    </li>
-
-    <?php foreach ($ids as $pid):
-      $pid = (int) $pid;
-      $product = wc_get_product($pid);
-      if (!$product instanceof WC_Product) {
-        continue;
-      }
-      $hint = Logic::hint($pid);
-      /* کالای ناموجود قیمت نشان نمی‌دهد — نشان «ناموجود» روی عکس گویاست */
-      $price = $product->is_in_stock() ? $product->get_price_html() : "";
-      $off = 0;
-      $reg = (float) $product->get_regular_price();
-      $now = (float) $product->get_price();
-      if ($reg > 0 && $now > 0 && $now < $reg) {
-        $off = (int) round((($reg - $now) / $reg) * 100);
-      }
-    ?>
-      <li class="kala__item">
-        <a class="kala__link" href="<?php echo esc_url((string) get_permalink($pid)); ?>">
-          <span class="kala__media">
-            <?php echo $product->get_image("woocommerce_thumbnail", ["loading" => "lazy", "class" => "kala__img"]); ?>
-            <?php if (!$product->is_in_stock()): ?>
-              <span class="kala__flag kala__flag--out"><?php esc_html_e("ناموجود", "twodt"); ?></span>
-            <?php elseif ($off > 0): ?>
-              <span class="kala__flag kala__flag--off"><?php echo esc_html(number_format_i18n($off)); ?>٪</span>
-            <?php endif; ?>
-            <?php if ($hint !== ""): ?>
-              <span class="kala__hint"><?php echo esc_html($hint); ?></span>
-            <?php endif; ?>
-          </span>
-
-          <span class="kala__body">
-            <span class="kala__name"><?php echo esc_html($product->get_name()); ?></span>
-            <?php if ($price !== "" && $price !== null): ?>
-              <span class="kala__price"><?php echo wp_kses_post($price); ?></span>
-            <?php endif; ?>
-          </span>
+<aside class="f-deal min-w-0" aria-label="<?php echo esc_attr($label); ?>">
+  <div class="f-deal__box">
+    <div class="f-deal__lock">
+      <div class="f-deal__title"><?php echo esc_html($label); ?></div>
+      <?php if ($more !== ""): ?>
+        <a class="f-deal__more" href="<?php echo esc_url($more); ?>">
+          <?php esc_html_e("مشاهده همه", "twodt"); ?>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6"/></svg>
         </a>
-      </li>
-    <?php endforeach; ?>
-
-  </ul>
+      <?php endif; ?>
+    </div>
+    <div class="f-deal__body">
+      <div class="f-deal__panel">
+        <ul class="products p-strip__list f-deal__list" data-scroll-strip="arrows">
+          <?php
+          global $post, $product;
+          $keep_post = $post;
+          $keep_product = $product;
+          foreach ($ids as $pid) {
+            $pid = (int) $pid;
+            $item = wc_get_product($pid);
+            if (!$item instanceof WC_Product) {
+              continue;
+            }
+            $post = get_post($pid);
+            setup_postdata($post);
+            $product = $item;
+            Mod::part("Shop/view-card", null, [
+              "actions" => false,
+              "hint" => Logic::hint($pid),
+              "title_tag" => "span",
+            ]);
+          }
+          $post = $keep_post;
+          $product = $keep_product;
+          wp_reset_postdata();
+          ?>
+        </ul>
+      </div>
+    </div>
+  </div>
 </aside>
