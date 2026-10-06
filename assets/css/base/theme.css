@@ -1,9 +1,11 @@
-/* theme.css v8.4 */
+/* theme.css v8.5 */
 :root {
   color-scheme: light;
   --font-sans: "IRANYekanXVF","IRANYekanX",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
   --font-display: "Lalezar", var(--font-sans);
   --hero-word-end: #4fbe83;
+  --hero-accent: #8b93f0;
+  --hero-accent-ink: #11132c;
 }
 :root {
   /* brand */
