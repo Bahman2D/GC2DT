@@ -1,5 +1,5 @@
 <?php
-/* PillarProducts/Logic.php v3.5 */
+/* PillarProducts/Logic.php v3.6 */
 declare(strict_types=1);
 
 namespace TWODT\Modules\PillarProducts;
@@ -74,9 +74,9 @@ final class Logic
     $picked_n = count(preg_split('/[^\d]+/', (string) $a["ids"], -1, PREG_SPLIT_NO_EMPTY) ?: []);
     $limit = $given !== ""
       ? (int) $given
-      : ($picked_n > 0 ? $picked_n : 3);
+      : ($picked_n > 0 || trim((string) $a["more"]) !== "" ? self::MAX : 3);
     $limit = max(1, min(self::MAX, $limit));
-    $ids = self::resolve((string) $a["ids"], (string) $a["cat"], $limit);
+    $ids = self::resolve((string) $a["ids"], (string) $a["cat"], $limit, (string) $a["more"]);
     if ($ids === []) {
       return "";
     }
@@ -102,17 +102,29 @@ final class Logic
   }
 
   /** @return array<int,int> */
-  private static function resolve(string $ids_raw, string $cat_raw, int $limit): array
+  private static function resolve(string $ids_raw, string $cat_raw, int $limit, string $more = ""): array
   {
     $picked = [];
+    $spare = [];
     foreach (preg_split('/[^\d]+/', $ids_raw, -1, PREG_SPLIT_NO_EMPTY) ?: [] as $chunk) {
       $id = (int) $chunk;
       if ($id > 0 && get_post_type($id) === "product" && get_post_status($id) === "publish") {
-        $picked[] = $id;
+        if (get_post_meta($id, "_stock_status", true) === "outofstock") {
+          $spare[] = $id;
+        } else {
+          $picked[] = $id;
+        }
       }
     }
 
     $slugs = array_values(array_filter(array_map("trim", explode(",", $cat_raw))));
+    if ($slugs === [] && $more !== "") {
+      $path = trim((string) wp_parse_url($more, PHP_URL_PATH), "/");
+      $last = $path !== "" ? basename($path) : "";
+      if ($last !== "" && term_exists(sanitize_title(urldecode($last)), "product_cat")) {
+        $slugs = [sanitize_title(urldecode($last))];
+      }
+    }
     if ($slugs !== [] && count($picked) < $limit) {
       $args = [
         "post_type" => "product",
@@ -120,7 +132,8 @@ final class Logic
         "posts_per_page" => $limit - count($picked),
         "fields" => "ids",
         "ignore_sticky_posts" => true,
-        "post__not_in" => $picked,
+        "post__not_in" => array_merge($picked, $spare),
+        "meta_query" => [["key" => "_stock_status", "value" => "outofstock", "compare" => "!="]],
         "tax_query" => [
           [
             "taxonomy" => "product_cat",
@@ -139,18 +152,18 @@ final class Logic
       $picked = array_merge($picked, get_posts($args));
     }
 
-    $ids = array_slice(array_values(array_unique(array_map("intval", $picked))), 0, $limit);
-    $in = [];
-    $out = [];
-    foreach ($ids as $id) {
-      if (get_post_meta($id, "_stock_status", true) === "outofstock") {
-        $out[] = $id;
-      } else {
-        $in[] = $id;
-      }
+    $live = array_slice(array_values(array_unique(array_map("intval", $picked))), 0, $limit);
+    $pad = max(0, min(3, $limit) - count($live));
+    $ids = array_merge($live, array_slice(array_map("intval", $spare), 0, $pad));
+    if (!class_exists(\TWODT\Modules\Shop\Filters::class)) {
+      return $ids;
     }
+    $products = array_values(array_filter(array_map("wc_get_product", $ids)));
 
-    return array_merge($in, $out);
+    return array_map(
+      static fn(\WC_Product $p): int => $p->get_id(),
+      \TWODT\Modules\Shop\Filters::stock_last_products($products),
+    );
   }
 
   private static function more_url(string $more, string $cat_raw): string

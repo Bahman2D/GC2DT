@@ -1,5 +1,5 @@
 <?php
-/* PillarProducts/view.php v6.0 */
+/* PillarProducts/view.php v6.1 */
 declare(strict_types=1);
 
 defined("ABSPATH") || exit();
@@ -44,7 +44,7 @@ $label = $note !== "" ? $note : __("کالاهای مرتبط", "twodt");
             setup_postdata($post);
             $product = $item;
             Mod::part("Shop/view-card", null, [
-              "actions" => false,
+              "actions" => true,
               "hint" => Logic::hint($pid),
               "title_tag" => "span",
             ]);
